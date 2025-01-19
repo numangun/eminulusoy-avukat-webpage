@@ -1,0 +1,27 @@
+.course-detail {
+  padding: 20px;
+
+  h1 {
+    margin-bottom: 20px;
+  }
+
+  .course-image {
+    width: 100%;
+    max-width: 800px; /* Maksimum genişlik */
+    aspect-ratio: 16 / 6; /* Sabit en-boy oranı */
+    object-fit: cover; /* Görüntüyü kırpmadan sabit boyuta sığdır */
+    margin: 0 auto 30px auto; /* Ortalamak için */
+  }
+
+  .course-description {
+    text-align: justify;
+    text-indent: 2em; /* Satır başı için */
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 0 15px;
+  }
+
+  .course-description p {
+    text-indent: 2em; /* Her paragraf için satır başı */
+  }
+}

@@ -1,0 +1,5 @@
+{
+    "admin" : [
+        { "title": "Blog Management", "link": "/dashboard/blog-management"}
+    ]
+}

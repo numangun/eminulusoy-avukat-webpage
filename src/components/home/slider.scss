@@ -1,0 +1,53 @@
+@use "../../styles/mixins" as m;
+@use "../../styles/variables" as v;
+
+$slider-img-height: calc(100vh - 110px);
+
+.slider {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+
+  .slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+  }
+
+  .carousel-item {
+    height: 100%; /* Eklendi: Carousel item yüksekliği */
+  }
+
+  .carousel-item img {
+    height: 100%; /* Eklendi: Görüntü yüksekliği */
+    object-fit: cover; /* Eklendi: Görüntünün kapsayıcıya sığması */
+  }
+
+  .carousel-caption {
+    top: 50%;
+    bottom: auto;
+    text-align: center;
+    width: 70%;
+    color: v.$color2;
+    @include m.transform(translateY(-50%));
+
+    @media (min-width: 768px) {
+      width: 40%;
+      text-align: left;
+    }
+  }
+
+  .carousel-control-prev,
+  .carousel-control-next {
+    display: none; /* Okları gizle */
+  }
+}

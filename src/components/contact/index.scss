@@ -1,0 +1,43 @@
+@use "../../styles/variables" as v;
+@use "../../styles/mixins" as m;
+
+.contact {
+  h2 {
+    color: v.$color1;
+    margin-bottom: 40px;
+  }
+
+  .card {
+    box-shadow: 0 3px 10px -5px v.$color2;
+    border: none;
+    z-index: 1;
+
+    .card-body {
+      padding: 50px;
+    }
+
+    a {
+      color: v.$color2-opacity-70;
+    }
+
+    .nav-link {
+      color: rgb(78, 74, 74); /* Varsayılan renk */
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 8px; /* İkon ile yazı arası boşluk */
+      transition: color 0.3s ease; /* Yumuşak geçiş */
+      margin-bottom: 15px;
+      text-decoration: none; /* Alt çizgiyi kaldır */
+
+      &:hover {
+        color: black; /* Hover durumunda renk değişimi */
+      }
+    }
+  }
+
+  iframe {
+    @include m.transform(translateY(-50px));
+    margin-bottom: -50px;
+  }
+}

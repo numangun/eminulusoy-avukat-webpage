@@ -1,0 +1,55 @@
+.other-courses-bar {
+  padding: 20px;
+  background-color: #fff; /* Beyaz arka plan */
+  position: relative;
+  /* border-left: 3px solid #007bff; */
+  border-radius: 4px;
+  max-width: 250px;
+  margin-top: 20px;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 20px; /* Spacer ile hizalamak için üstten boşluk */
+    left: 0;
+    height: calc(100% - 20px); /* Spacer ile hizalamak için yükseklik */
+    width: 3px;
+  }
+
+  h2 {
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+    color: #333; /* Nötr koyu gri */
+    text-align: center; /* Ortalanmış başlık */
+  }
+
+  .list-group-item {
+    margin-bottom: 0; /* Alt çizgiler ile boşluk ayarlanacak */
+    padding: 12px 16px; /* Yazılara soldan hafif boşluk */
+    background-color: #fff; /* Beyaz arka plan */
+    border: none; /* Kenarlık kaldırıldı */
+    border-left: 3px solid transparent; /* Hover için ince soldan border */
+    border-bottom: 1px solid #eee; /* Alt ince çizgi */
+    transition: all 0.3s ease; /* Hover efekti için yumuşak geçiş */
+
+    a {
+      text-decoration: none;
+      color: #555; /* Varsayılan bağlantı rengi */
+      font-size: 1.3rem;
+      transition: color 0.3s ease; /* Yazı rengi geçişi */
+
+      &:hover {
+        color: #007bff; /* Hover için mavi renk */
+      }
+    }
+
+    &:hover {
+      background-color: #f8f9fa; /* Hafif gri hover efekti */
+      border-left: 3px solid #007bff; /* Solda mavi border */
+    }
+  }
+
+  .list-group-item:last-child {
+    border-bottom: none; /* Son öğede alt çizgi kaldırıldı */
+  }
+}

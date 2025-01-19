@@ -1,0 +1,10 @@
+@use "../../styles/variables" as v;
+
+.nav-link {
+  color: v.$color3; /* Varsayılan renk */
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 8px; /* İkon ile yazı arası boşluk */
+  transition: color 0.3s ease; /* Yumuşak geçiş */
+}

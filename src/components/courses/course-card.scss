@@ -1,0 +1,39 @@
+@use "../../styles/variables" as v;
+@use "../../styles/mixins" as m;
+
+.course-card {
+  height: 100% !important;
+
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+
+    .card-title {
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+
+    .card-subtitle {
+      color: v.$color1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .image {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      img {
+        width: 100%;
+        height: 100%;
+        @include m.transition(transform 0.5s);
+        &:hover {
+          @include m.transform(scale(1.5) rotate(5deg));
+        }
+      }
+    }
+  }
+}
