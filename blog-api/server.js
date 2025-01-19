@@ -8,14 +8,23 @@ const path = require("path");
 const app = express();
 const port = 3001;
 
+require("dotenv").config();
+
 // MongoDB bağlantısı
+const mongoURI = process.env.MONGODB_URI || "your_mongodb_atlas_connection_string";
+mongoose.set('debug', true);
 mongoose
-  .connect("mongodb://localhost:27017/blog")
+  .connect(mongoURI, {
+    serverSelectionTimeoutMS: 5000, // Timeout after 5s instead of 30s
+    socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
+  })
   .then(() => {
-    console.log("Connected to MongoDB");
+    console.log("Successfully connected to MongoDB Atlas");
   })
   .catch((err) => {
-    console.error("Failed to connect to MongoDB", err);
+    console.error("Connection error:", err);
+    // More detailed error logging
+    if (err.code) console.error("Error code:", err.code);
   });
 
 // Blog şeması ve modeli
