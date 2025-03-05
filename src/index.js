@@ -7,7 +7,6 @@ import { Provider as StoreProvider } from "react-redux";
 import store from "./store";
 import { PrimeReactProvider } from "primereact/api";
 
-
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>

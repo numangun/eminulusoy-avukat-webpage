@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Ana Sayfa -->
+  <url>
+    <loc>https://eminulusoy.av.tr/</loc>        <!-- Sayfanın URL'i -->
+    <lastmod>2024-02-23</lastmod>               <!-- Son güncelleme tarihi -->
+    <changefreq>weekly</changefreq>             <!-- Güncelleme sıklığı: haftalık -->
+    <priority>1.0</priority>                    <!-- Öncelik: en yüksek -->
+  </url>
+
+  <!-- Hakkımızda Sayfası -->
+  <url>
+    <loc>https://eminulusoy.av.tr/hakkimizda</loc>
+    <lastmod>2024-02-23</lastmod>
+    <changefreq>monthly</changefreq>            <!-- Güncelleme sıklığı: aylık -->
+    <priority>0.8</priority>                    <!-- Öncelik: yüksek -->
+  </url>
+
+  <!-- Çalışma Alanları -->
+  <url>
+    <loc>https://eminulusoy.av.tr/calisma-alanlarimiz</loc>
+    <lastmod>2024-02-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Blog Sayfası -->
+  <url>
+    <loc>https://eminulusoy.av.tr/blog</loc>
+    <lastmod>2024-02-23</lastmod>
+    <changefreq>weekly</changefreq>             <!-- Blog sık güncellenir -->
+    <priority>0.7</priority>                    <!-- Orta-yüksek öncelik -->
+  </url>
+
+  <!-- İletişim Sayfası -->
+  <url>
+    <loc>https://eminulusoy.av.tr/iletisim</loc>
+    <lastmod>2024-02-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>                    <!-- Normal öncelik -->
+  </url>
+</urlset>

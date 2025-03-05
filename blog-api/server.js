@@ -11,8 +11,8 @@ const port = 3001;
 require("dotenv").config();
 
 // MongoDB bağlantısı
-const mongoURI = process.env.MONGODB_URI || "your_mongodb_atlas_connection_string";
-mongoose.set('debug', true);
+const mongoURI = process.env.MONGODB_URI || "mongodb://localhost:27017/blog";
+mongoose.set("debug", true);
 mongoose
   .connect(mongoURI, {
     serverSelectionTimeoutMS: 5000, // Timeout after 5s instead of 30s

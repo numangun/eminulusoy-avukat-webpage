@@ -8,8 +8,10 @@ import SocialMenu from "./social-menu";
 import ContactMenu from "./contact-menu";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWhatsapp, faTwitter } from "@fortawesome/free-brands-svg-icons";
+import courses from "../../helpers/data/courses.json";
 
 const Footer = () => {
+  const footerCourses = courses.slice(0, 8); // İlk 8 çalışma alanı
   return (
     <footer>
       <Container>
@@ -41,15 +43,23 @@ const Footer = () => {
             </div>
           </Col>
           <Col sm={6} md={4} lg={3}>
-            <h3>Hızlı Linkler</h3>
-            <MainMenu className="flex-column" />
+            <h3>Çalışma Alanlarımız</h3>
+            <ul className="footer-menu">
+              {footerCourses.map((course) => (
+                <li key={course.id}>
+                  <Link to={`/calisma-alanlarimiz/${course.slug}`}>
+                    {course.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </Col>
           <Col sm={6} md={4} lg={3}>
             <h3>Faydalı Linkler</h3>
             <SocialMenu className="flex-column" />
           </Col>
           <Col md={4} lg={3}>
-            <h3>Bizimle İletişime Geçin</h3>
+            <h3>İletişim</h3>
             <ContactMenu className="flex-column" />
           </Col>
         </Row>

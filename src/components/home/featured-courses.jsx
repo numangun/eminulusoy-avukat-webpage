@@ -13,7 +13,7 @@ const featuredCourses = courses.slice(
 const FeaturedCourses = () => {
   return (
     <div className="featured-courses">
-      <h2>Sizlere Hizmet Verdiğimiz Alanlar</h2>
+      <h2>Çalışma Alanlarımız</h2>
 
       <Container>
         <Row className="g-5" xs={1} sm={2} md={3} lg={4}>

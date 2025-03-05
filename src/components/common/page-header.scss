@@ -8,13 +8,16 @@
 
   h1 {
     font-weight: 700;
+    color: #ffffff;
 
     &::before {
       content: "○ ";
+      color: #ffffff;
     }
 
     &::after {
       content: " ○";
+      color: #ffffff;
     }
   }
 }

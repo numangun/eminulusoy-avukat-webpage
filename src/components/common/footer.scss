@@ -1,35 +1,75 @@
 @use "../../styles/variables" as v;
 
 footer {
-  background-color: v.$color2;
-  color: v.$color3;
+  background-color: #ffffff; // Beyaz arka plan
+  color: #333333; // Koyu gri/siyah yazı rengi
   padding-top: 150px;
   padding-bottom: 150px;
 
   .logo {
     display: block;
-    margin: 0 auto; // Logoyu ortalamak için
+    margin: 0 auto;
+    margin-bottom: 1.5rem;
+    max-width: 200px; // Logo boyutunu sınırla
   }
 
   p {
-    text-align: justify; // Yazıları iki yana yaslamak için
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 1.5rem;
+    max-width: 80%; // Metin genişliğini sınırla
   }
 
   .social-icons {
     display: flex;
-    justify-content: center; // İkonları ortalamak için
+    justify-content: center;
     margin-top: 1rem;
 
     a {
-      margin: 0 0.5rem; // İkonlar arasında boşluk eklemek için
-      color: inherit;
+      margin: 0 0.5rem;
+      color: #333333;
+      transition: color 0.3s ease;
 
       &:hover {
-        color: #007bff; // İkonların üzerine gelindiğinde renk değişimi
+        color: v.$color1; // Ana tema rengi
       }
+
       &:hover .fa-whatsapp {
-        color: #25d366; // WhatsApp simgesi için yeşil renk
+        color: #25d366;
+      }
+
+      &:hover .fa-twitter {
+        color: #1da1f2;
       }
     }
+  }
+
+  // Yeni eklenen footer menu stilleri
+  .footer-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      margin-bottom: 0.8rem;
+
+      a {
+        color: #333333;
+        text-decoration: none;
+        transition: color 0.3s ease;
+        font-size: 0.95rem;
+
+        &:hover {
+          color: v.$color1; // Ana tema rengi
+        }
+      }
+    }
+  }
+
+  h3 {
+    color: #222222;
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+    font-weight: 600;
   }
 }

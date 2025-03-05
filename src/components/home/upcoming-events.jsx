@@ -4,13 +4,25 @@ import "./upcoming-events.scss";
 const events = [
   {
     id: 1,
-    title: "Hukuksal Çözümler",
+    title: (
+      <>
+        Dava ve İcra
+        <br />
+        Dosyalarının Takibi
+      </>
+    ),
     background: "/images/sections/section-1.jpg",
     gradient: "rgba(33, 37, 41, 0.9)",
   },
   {
     id: 2,
-    title: "Hukuki Danışmanlık",
+    title: (
+      <>
+        Hukuki Danışmanlık
+        <br />
+        Hizmeti
+      </>
+    ),
     background: "/images/sections/section-2.jpg",
     gradient: "rgba(108, 117, 125, 0.9)",
   },

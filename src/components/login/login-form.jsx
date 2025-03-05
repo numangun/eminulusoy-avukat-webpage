@@ -127,26 +127,44 @@ const LoginForm = () => {
   const initialValues = {
     username: "",
     password: "",
+    rememberMe: false,
   };
 
   const validationSchema = Yup.object({
     username: Yup.string().required("Required"),
     password: Yup.string().required("Required"),
+    rememberMe: Yup.boolean(),
   });
 
   const onSubmit = async (values) => {
     setLoading(true);
 
     try {
-      // Sabit kullanıcı adı ve şifre kontrolü
-      if (values.username === "numangun" && values.password === "123numan.") {
+      if (
+        values.username === process.env.REACT_APP_ADMIN_USERNAME &&
+        values.password === process.env.REACT_APP_ADMIN_PASSWORD
+      ) {
+        // Token oluştur ve sakla
+        const expirationTime = values.rememberMe
+          ? new Date().getTime() + 7 * 24 * 60 * 60 * 1000 // 7 gün
+          : new Date().getTime() + 2 * 60 * 60 * 1000; // 2 saat
+
         localStorage.setItem("isAuthenticated", "true");
-        localStorage.setItem("userRole", "admin"); // Kullanıcı rolünü kaydet
-        navigate("/admin"); // Admin paneline yönlendirme
+        localStorage.setItem("userRole", "admin");
+        localStorage.setItem("expirationTime", expirationTime);
+
+        if (values.rememberMe) {
+          localStorage.setItem("rememberedUsername", values.username);
+        } else {
+          localStorage.removeItem("rememberedUsername");
+        }
+
+        navigate("/admin");
       } else {
-        swalAlert("Invalid credentials", "error");
+        swalAlert("Geçersiz kullanıcı adı veya şifre", "error");
       }
     } catch (err) {
+      console.error("Login error:", err);
       swalAlert("An error occurred", "error");
     } finally {
       setLoading(false);
@@ -193,6 +211,16 @@ const LoginForm = () => {
                       formik.touched.password && formik.errors.password
                     }
                     error={formik.errors.password}
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="rememberMe">
+                  <Form.Check
+                    type="checkbox"
+                    label="Beni Hatırla"
+                    name="rememberMe"
+                    checked={formik.values.rememberMe}
+                    onChange={formik.handleChange}
                   />
                 </Form.Group>
 

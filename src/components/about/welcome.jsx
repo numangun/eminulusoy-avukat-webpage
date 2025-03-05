@@ -13,12 +13,12 @@ const Welcome = () => {
           <Col md={6}>
             <h2>Hakkımızda</h2>
             <p>
-              Av. Emin Ulusoy 2019 yılında İstanbul Üniversitesi Hukuk
+              Avukat Emin Ulusoy 2019 yılında İstanbul Üniversitesi Hukuk
               Fakültesi’nden Yüksek Onur öğrencisi olarak mezun olmuş, İstanbul
-              Barosu nezdinde yasal stajını tamamlamıştır. Av. Emin Ulusoy 2020
-              yılından beri İstanbul merkezli olarak Türkiye genelinde avukatlık
-              ve hukuki danışmanlık hizmeti vermektedir. Av. Emin Ulusoy,
-              uygulamaya yönelik güncel tecrübesi ve bilgi birikimi ile
+              Barosu nezdinde yasal stajını tamamlamıştır. Avukat Emin Ulusoy
+              2020 yılından beri İstanbul merkezli olarak Türkiye genelinde
+              avukatlık ve hukuki danışmanlık hizmeti vermektedir. Avukat Emin
+              Ulusoy, uygulamaya yönelik güncel tecrübesi ve bilgi birikimi ile
               müvekkilleri aleyhine ortaya çıkabilecek ve onlara zarar
               verebilecek hukuki risklerin azaltılmasına yönelik hukuki
               danışmanlık hizmeti verdiği gibi hukuki uyuşmazlık ortaya
