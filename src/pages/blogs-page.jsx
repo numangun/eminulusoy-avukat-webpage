@@ -6,7 +6,7 @@ import PageHeader from "../components/common/page-header";
 const BlogsPage = () => {
   return (
     <>
-      <PageHeader title="Makaleler" />
+      <PageHeader title="Blog" />
       <Spacer />
       <UserBlogList />
       <Spacer />

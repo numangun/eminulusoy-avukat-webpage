@@ -45,8 +45,8 @@ const ContactForm = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            access_key: "c42f70aa-62dd-41a7-97b3-cdbe93b0ae88",
-            subject: `${values.name} size Web Sitenizden bir mesaj gönderdi`,
+            access_key: process.env.REACT_APP_WEB3FORMS_ACCESS_KEY,
+            subject: `Konu: ${values.subject} - ${values.name} size Web Sitenizden bir mesaj gönderdi`,
             name: values.name,
             email: values.email,
             message: values.message,

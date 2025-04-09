@@ -10,14 +10,15 @@ footer {
     display: block;
     margin: 0 auto;
     margin-bottom: 1.5rem;
-    max-width: 200px; // Logo boyutunu sınırla
+    margin-right: 3rem;
+    max-width: 300px; // Logo boyutunu sınırla
   }
 
   p {
     text-align: center;
     margin: 0 auto;
     margin-bottom: 1.5rem;
-    max-width: 80%; // Metin genişliğini sınırla
+    /*  max-width: 80%; */ // Metin genişliğini sınırla
   }
 
   .social-icons {

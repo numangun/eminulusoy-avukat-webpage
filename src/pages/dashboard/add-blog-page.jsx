@@ -1,13 +1,8 @@
 import React from "react";
-import AddBlog from "../../components/blogs/add-blog";
+import NewBlogForm from "../../components/dashboard/blog/new-blog-form";
 
 const AddBlogPage = () => {
-  return (
-    <div>
-      <h1>Blog Ekle</h1>
-      <AddBlog />
-    </div>
-  );
+  return <NewBlogForm />;
 };
 
 export default AddBlogPage;

@@ -1,15 +1,282 @@
-.blog-card {
+@use "../../styles/mixins" as m;
+@use "../../styles/variables" as v;
+
+// Blog row yapısı - flex kullanarak aynı yükseklikte olmasını sağlar
+.blog-row {
+  display: flex;
+  flex-wrap: wrap;
   position: relative;
 }
 
-.date-overlay {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  background-color: rgba(0, 0, 0, 0.7);
+// Ana içerik sütunu için stil düzeni
+.main-content-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; // İçeriği üstte, pagination'ı altta tutar
+  min-height: 600px; // Minimum bir yükseklik belirlenir
+}
+
+// Blog içeriği için stil düzeni
+.blog-content-wrapper {
+  flex-grow: 1; // İçeriğin esnek büyümesini sağlar
+}
+
+// Pagination alanı için stil düzeni
+.pagination-wrapper {
+  padding-top: 2rem;
+  margin-top: auto; // Alt kısımda konumlandırır
+  padding-bottom: 1.5rem;
+  width: 100%;
+}
+
+// Sidebar column
+.sidebar-column {
+  display: flex;
+  flex-direction: column;
+}
+
+// Sticky sidebar styles
+.sticky-sidebar {
+  position: sticky;
+  top: 20px; // Üstten 20px boşluk
+  height: fit-content;
+}
+
+// Sidebar card
+.sidebar-card {
+  height: 100%; // Sidebar kartının tüm alanı doldurması
+  display: flex;
+  flex-direction: column;
+}
+
+.blog-card {
+  transition: transform 0.3s ease;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .blog-image {
+    height: 200px;
+    object-fit: cover;
+    border-radius: 0;
+  }
+
+  .date-overlay {
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 80px; // Biraz daha uzun
+    background-color: #fff;
+    color: v.$color1;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    text-align: center;
+    padding: 8px 8px 12px; // Alt kısmı biraz daha geniş
+    border-top: 3px solid #00205B;
+  
+    .day {
+      font-size: 1.4rem;
+      font-weight: 600;
+      line-height: 1;
+      margin-bottom: 3px;
+    }
+  
+    .month {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-bottom: 0;
+      line-height: 1;
+    }
+  
+    .year {
+      font-size: 0.65rem;
+      color: #666;
+      font-weight: 500;
+    }
+  }
+
+  .card-body {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    .card-title {
+      font-size: 1.1rem;
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      height: 2.8em; // 2 satır için yaklaşık yükseklik
+      line-height: 1.4;
+    }
+
+    .card-text {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 1rem;
+      flex-grow: 1;
+
+      &.text-truncate-3 {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        height: 4.5em; // 3 satır için yaklaşık yükseklik
+      }
+    }
+
+    .btn {
+      width: 100%;
+      margin-top: auto;
+    }
+  }
+}
+
+.recent-posts {
+  .recent-post-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  li {
+    padding: 12px 0;
+    transition: background-color 0.3s ease;
+    border-radius: 8px;
+    margin-bottom: 8px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &:hover {
+      background-color: rgba(0, 123, 255, 0.05);
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 8px;
+    }
+
+    h6 {
+      font-size: 0.9rem;
+      line-height: 1.3;
+      color: #333;
+      margin-bottom: 4px;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: v.$color1;
+      }
+    }
+
+    small {
+      font-size: 0.75rem;
+      color: #666;
+    }
+  }
+}
+
+// Sidebar card header
+.card-header {
+  background-color: #007bff;
   color: white;
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 0.9em;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 8px 8px 0 0;
+}
+
+// Sidebar card body
+.card-body {
+  padding: 16px;
+  background-color: #fff;
+  border-radius: 0 0 8px 8px;
+}
+
+// Sidebar card
+.card {
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+// Sayfalama stilleri
+// Pagination container - pagination'ı sticky'den ayırmak için
+.pagination-container {
+  margin-top: 2rem;
+  position: relative; // sticky sidebar'dan etkilenmemesi için
   z-index: 1;
+}
+
+.pagination {
+  margin-bottom: 0;
+  .page-item {
+    .page-link {
+      color: v.$color1;
+      border: 1px solid #dee2e6;
+      padding: 0.5rem 0.75rem;
+      margin: 0 2px;
+      border-radius: 4px;
+
+      &:hover {
+        background-color: v.$color1;
+        border-color: v.$color1;
+        color: white;
+      }
+    }
+
+    &.active .page-link {
+      background-color: v.$color1;
+      border-color: v.$color1;
+      color: white;
+    }
+
+    &.disabled .page-link {
+      color: #6c757d;
+      pointer-events: none;
+      background-color: #fff;
+      border-color: #dee2e6;
+    }
+  }
+}
+
+// Responsive düzen ayarları
+@media (max-width: 991px) {
+  .main-content-column {
+    min-height: auto; // Mobilde minimum yüksekliği kaldır
+  }
+  
+  .pagination-wrapper {
+    margin-top: 2rem; // Mobilde sabit bir üst margin
+  }
 }

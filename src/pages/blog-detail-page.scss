@@ -1,15 +1,281 @@
-.blog-card {
-  position: relative;
+@use "../styles/variables" as v;
+
+// Blog içeriği için CSS
+.blog-detail {
+  line-height: 1.8;
+  color: #333;
+  
+  p {
+    margin-bottom: 1.5rem;
+    text-align: justify;
+  }
+  
+  // Listelerde margin
+  ul, ol {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+    
+    li {
+      margin-bottom: 0.5rem;
+      position: relative;
+    }
+  }
+
+  // Madde işaretleri için özel stiller
+  ul {
+    list-style-type: none;
+    
+    li {
+      padding-left: 1.5rem;
+      
+      &:before {
+        content: "•";
+        color: v.$color1;
+        font-weight: bold;
+        position: absolute;
+        left: 0;
+      }
+    }
+  }
+  
+  // Sıralı listeler için özel stiller
+  ol {
+    list-style-position: outside;
+    counter-reset: item;
+    
+    li {
+      counter-increment: item;
+      padding-left: 0.5rem;
+      
+      &:before {
+        content: counter(item) ".";
+        color: v.$color1;
+        font-weight: bold;
+        margin-right: 0.5rem;
+      }
+    }
+  }
+
+  // Bullet points sonrası içerik
+  .bullet-continuation {
+    margin-top: 0.5rem;
+    padding-left: 1.5rem;
+  }
+  
+  // İçeriden başlayan satırlar
+  .indented {
+    padding-left: 1.5rem;
+  }
+  
+  // Başlıklar
+  h2, h3, h4, h5, h6 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: v.$color1;
+    font-weight: 600;
+  }
+
+  // İmajlar
+  img {
+    max-width: 100%;
+    height: auto;
+    margin: 1.5rem 0;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+  
+  // Linkler
+  a {
+    color: v.$color1;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s;
+    
+    &:hover {
+      border-color: v.$color1;
+    }
+  }
 }
 
-.date-overlay {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  background-color: rgba(0, 0, 0, 0.7);
-  color: white;
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 0.9em;
-  z-index: 1;
+.blog-detail-container {
+  padding: 2rem 0;
+
+  // İçerik sütunları için düzen
+  .row > [class*="col-"] {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.blog-detail-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  min-height: 100vh; // En az görünür yükseklik kadar yükseklikte olsun
+}
+
+// Blog kartı için yükseklik ayarları
+.blog-detail-card {
+  height: 100%;
+  display: flex; 
+  flex-direction: column;
+}
+
+.blog-detail-card,
+.sidebar {
+  
+  .blog-header {
+    padding: 1.5rem 1.5rem 0.5rem;
+    
+    .blog-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+    }
+    
+    .blog-meta {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 1rem;
+      
+      .blog-date {
+        i {
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+  
+  .blog-image-container {
+    
+    
+    .blog-image {
+      width: 100%;
+      max-height: 400px;
+      object-fit: cover;
+      border-radius: 0;
+      -webkit-border-radius: 0;
+      -moz-border-radius: 0;
+      -ms-border-radius: 0;
+      -o-border-radius: 0;
+}
+  }
+  
+  .blog-content {
+    padding: 0 1.5rem 1.5rem;
+    
+    .blog-summary {
+      font-weight: 500;
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+      color: #444;
+      border-left: 4px solid v.$color1;
+      padding-left: 1rem;
+      font-style: italic;
+    }
+    
+    .blog-detail {
+      line-height: 1.7;
+      color: #333;
+      
+      p {
+        margin-bottom: 1.2rem;
+      }
+    }
+  }
+}
+
+// Blog kartının içeriğinin esnek büyümesini sağla
+.blog-detail-card {
+  .blog-content {
+    flex-grow: 1; // İçeriğin kartta esnek büyümesini sağlar
+  }
+}
+
+// Sidebar styles
+.sidebar {
+  position: sticky;
+  top: 20px;
+  max-height: calc(100vh - 40px); // Ekran yüksekliğinden biraz az
+  
+  .sidebar-card {
+    height: auto; // Kartın içeriğine göre otomatik yükseklik
+    
+    
+    .card-header {
+      background-color: v.$color1;
+      color: white;
+      font-weight: 600;
+      border: none;
+    }
+    
+    .recent-posts-list {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+      
+      .recent-post-item {
+        border-bottom: 1px solid #eee;
+        
+        &:last-child {
+          border-bottom: none;
+        }
+        
+        .recent-post-link {
+          display: flex;
+          padding: 0.8rem 0;
+          text-decoration: none;
+          color: inherit;
+          transition: all 0.2s ease;
+          
+          &:hover {
+            background-color: #f9f9f9;
+            
+            .recent-post-title {
+              color: v.$color1;
+            }
+          }
+          
+          .recent-post-img-container {
+            width: 70px;
+            height: 70px;
+            margin-right: 0.8rem;
+            
+            .recent-post-img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              border-radius: 4px;
+            }
+          }
+          
+          .recent-post-content {
+            .recent-post-title {
+              font-size: 0.95rem;
+              margin-bottom: 0.3rem;
+              color: #333;
+              transition: color 0.2s ease;
+            }
+            
+            .recent-post-date {
+              font-size: 0.8rem;
+              color: #888;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Mobil düzen için responsive ayarları
+@media (max-width: 991px) {
+  .blog-detail-card,
+  .sidebar {
+    height: auto; // Mobilde kartların içeriğe göre otomatik boyutlanmasını sağla
+  }
+  
+  .sidebar {
+    margin-top: 2rem; // Mobilde sidebar ile kart arasında boşluk bırak
+  }
 }

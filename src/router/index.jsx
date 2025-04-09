@@ -10,11 +10,10 @@ import ContactPage from "../pages/contact-page";
 import LoginPage from "../pages/login-page";
 import AdminPage from "../pages/dashboard/admin-page";
 import BlogManagementPage from "../pages/dashboard/blog-management-page";
-import AddBlog from "../components/blogs/add-blog";
+import AddBlogPage from "../pages/dashboard/add-blog-page";
 import PrivateRoute from "./private-route";
 import Error403Page from "../pages/errors/error403-page";
 import Error404Page from "../pages/errors/error404-page";
-import NewBlogForm from "../components/dashboard/blog/new-blog-form";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +41,10 @@ const router = createBrowserRouter([
         element: <BlogsPage />,
       },
       {
+        path: "blog/sayfa/:pageNumber",
+        element: <BlogsPage />,
+      },
+      {
         path: "blog/:slug",
         element: <BlogDetailPage />,
       },
@@ -60,38 +63,28 @@ const router = createBrowserRouter([
             <AdminPage />
           </PrivateRoute>
         ),
-        children: [
-          {
-            path: "blog-yonetimi",
-            element: (
-              <PrivateRoute roles={["admin"]}>
-                <BlogManagementPage />
-              </PrivateRoute>
-            ),
-          },
-          {
-            path: "blog-ekle",
-            element: (
-              <PrivateRoute roles={["admin"]}>
-                <NewBlogForm />
-              </PrivateRoute>
-            ),
-          },
-          {
-            path: "blog-ekle/:id",
-            element: (
-              <PrivateRoute roles={["admin"]}>
-                <NewBlogForm />
-              </PrivateRoute>
-            ),
-          },
-        ],
       },
       {
-        path: "dashboard/blog-management",
+        path: "admin/blog-yonetimi",
         element: (
           <PrivateRoute roles={["admin"]}>
             <BlogManagementPage />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "admin/blog-ekle",
+        element: (
+          <PrivateRoute roles={["admin"]}>
+            <AddBlogPage />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "admin/blog-ekle/:id",
+        element: (
+          <PrivateRoute roles={["admin"]}>
+            <AddBlogPage />
           </PrivateRoute>
         ),
       },

@@ -6,7 +6,7 @@ import LoginForm from '../components/login/login-form'
 const LoginPage = () => {
   return (
     <>
-        <PageHeader title="Login"/>
+        <PageHeader title="GİRİŞ YAP"/>
         <Spacer/>
         <LoginForm/>
         <Spacer/>
