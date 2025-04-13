@@ -1,0 +1,55 @@
+name: Deploy Backend API
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "blog-api/**"
+  workflow_dispatch:
+
+jobs:
+  deploy-api:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+
+      - name: Install dependencies
+        working-directory: ./blog-api
+        run: npm install
+
+      - name: Create .env file
+        working-directory: ./blog-api
+        run: |
+          echo "MONGODB_URI=${{ secrets.MONGODB_URI }}" > .env
+
+      - name: Package API files
+        run: |
+          mkdir -p api-deploy
+          cp -r blog-api/* api-deploy/
+          cp -r blog-api/.env api-deploy/
+          cd api-deploy
+          npm install --production
+          cd ..
+          tar -czf api-deploy.tar.gz api-deploy
+
+      - name: Deploy API to Plesk
+        uses: kevinpainchaud/simple-ftp-deploy-action@v1.2.1
+        with:
+          ftp_host: ${{ secrets.FTP_SERVER }}
+          ftp_username: ${{ secrets.FTP_USERNAME }}
+          ftp_password: ${{ secrets.FTP_PASSWORD }}
+          local_source_dir: "api-deploy.tar.gz"
+          dist_target_dir: "api"
+          delete: "false"
+
+      - name: Setup PM2 on Plesk (via SSH)
+        run: |
+          echo "Not implemented - bu adım için Plesk üzerinde SSH erişimi gereklidir"
+          echo "Plesk'te Node.js uygulamanızı çalıştırmak için, Plesk panel üzerinden Node.js application ayarları yapılmalıdır."

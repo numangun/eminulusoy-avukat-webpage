@@ -46,7 +46,16 @@ const blogSchema = new mongoose.Schema(
 const Blog = mongoose.model("Blog", blogSchema);
 
 app.use(bodyParser.json());
-app.use(cors());
+
+// CORS ayarları - tüm domainlere izin verir
+app.use(
+  cors({
+    origin: "*", // Tüm domainlerden isteklere izin ver
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Multer ayarları

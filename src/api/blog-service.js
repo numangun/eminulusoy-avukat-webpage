@@ -1,54 +1,111 @@
-import axios from "axios";
+import axiosInstance from "../utils/axios-instance";
 
 // API URL'ini dinamik olarak belirle
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3001";
 
+// Plesk subdomain kullanımı
+const getAPIURL = () => {
+  // Eğer API_URL'de port belirtilmemişse (muhtemelen production ortamı)
+  if (!API_URL.includes("localhost") && !API_URL.includes(":")) {
+    // apisi.domain.com şeklinde yapılandır
+    if (window.location.hostname !== "localhost") {
+      return `https://api.${window.location.hostname}`;
+    }
+  }
+  return API_URL;
+};
+
+const FINAL_API_URL = getAPIURL();
+
+// Hata ayıklama için API URL'ini konsola yazdır
+console.log("API_URL:", FINAL_API_URL);
+
 // Tüm blogları getir (sadece aktif olanlar)
 export const getBlogs = async () => {
-  const response = await axios.get(`${API_URL}/api/blogs`);
-  return response.data;
+  try {
+    const response = await axiosInstance.get("/api/blogs");
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching blogs:", error);
+    return [];
+  }
 };
 
 // Tüm blogları getir (admin için)
 export const getAllBlogs = async () => {
-  const response = await axios.get(`${API_URL}/api/admin/blogs`);
-  return response.data;
+  try {
+    const response = await axiosInstance.get("/api/admin/blogs");
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching all blogs:", error);
+    return [];
+  }
 };
 
 // Slug'e göre blog getir
 export const getOneBlogBySlug = async (slug) => {
-  const blogs = await getBlogs();
-  return blogs.find((blog) => blog.slug === slug);
+  try {
+    const blogs = await getBlogs();
+    return blogs.find((blog) => blog.slug === slug);
+  } catch (error) {
+    console.error("Error finding blog by slug:", error);
+    return null;
+  }
 };
 
 // ID'ye göre blog getir
 export const getBlogById = async (id) => {
-  const response = await axios.get(`${API_URL}/api/blogs/${id}`);
-  return response.data;
+  try {
+    const response = await axiosInstance.get(`/api/blogs/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching blog by ID:", error);
+    return null;
+  }
 };
 
 // Blog oluştur
 export const createBlog = async (blogData) => {
-  const response = await axios.post(`${API_URL}/api/blogs`, blogData);
-  return response.data;
+  try {
+    const response = await axiosInstance.post("/api/blogs", blogData);
+    return response.data;
+  } catch (error) {
+    console.error("Error creating blog:", error);
+    throw error;
+  }
 };
 
 // Blog güncelle
 export const updateBlog = async (id, blogData) => {
-  const response = await axios.put(`${API_URL}/api/blogs/${id}`, blogData);
-  return response.data;
+  try {
+    const response = await axiosInstance.put(`/api/blogs/${id}`, blogData);
+    return response.data;
+  } catch (error) {
+    console.error("Error updating blog:", error);
+    throw error;
+  }
 };
 
 // Blog sil
 export const deleteBlog = async (id) => {
-  const response = await axios.delete(`${API_URL}/api/blogs/${id}`);
-  return response.data;
+  try {
+    const response = await axiosInstance.delete(`/api/blogs/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting blog:", error);
+    throw error;
+  }
 };
 
 // Blog durumunu değiştir
 export const toggleBlogStatus = async (id, isActive) => {
-  const response = await axios.put(`${API_URL}/api/blogs/${id}/toggle-status`, {
-    isActive,
-  });
-  return response.data;
+  try {
+    const response = await axiosInstance.put(`/api/blogs/${id}/toggle-status`, {
+      isActive,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error toggling blog status:", error);
+    throw error;
+  }
 };
