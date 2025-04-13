@@ -20,14 +20,25 @@ const FINAL_API_URL = getAPIURL();
 // Hata ayıklama için API URL'ini konsola yazdır
 console.log("API_URL:", FINAL_API_URL);
 
+// Fallback veriler için statik JSON dosyaları
+const FALLBACK_BLOGS_URL = "/api/blogs.json";
+
 // Tüm blogları getir (sadece aktif olanlar)
 export const getBlogs = async () => {
   try {
     const response = await axiosInstance.get("/api/blogs");
     return response.data;
   } catch (error) {
-    console.error("Error fetching blogs:", error);
-    return [];
+    console.error("Error fetching blogs from API, using fallback:", error);
+    try {
+      // API'den veri alınamazsa statik JSON dosyasını kullan
+      const fallbackResponse = await fetch(FALLBACK_BLOGS_URL);
+      const fallbackData = await fallbackResponse.json();
+      return fallbackData;
+    } catch (fallbackError) {
+      console.error("Error fetching fallback data:", fallbackError);
+      return [];
+    }
   }
 };
 
@@ -38,7 +49,14 @@ export const getAllBlogs = async () => {
     return response.data;
   } catch (error) {
     console.error("Error fetching all blogs:", error);
-    return [];
+    // Fallback olarak normal blog listesini kullan
+    try {
+      const blogs = await getBlogs();
+      return blogs;
+    } catch (fallbackError) {
+      console.error("Error fetching fallback data:", fallbackError);
+      return [];
+    }
   }
 };
 

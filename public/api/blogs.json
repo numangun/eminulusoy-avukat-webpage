@@ -1,0 +1,35 @@
+[
+  {
+    "_id": "mock-blog-1",
+    "title": "Örnek Blog Yazısı 1",
+    "slug": "ornek-blog-yazisi-1",
+    "summary": "Bu örnek bir blog yazısıdır. API'yi test etmek için kullanılır.",
+    "detail": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl nec ultricies lacinia, nisl nisl aliquam nisl, eget aliquam nisl nisl sit amet nisl. Sed euismod, nisl nec ultricies lacinia, nisl nisl aliquam nisl, eget aliquam nisl nisl sit amet nisl.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl nec ultricies lacinia, nisl nisl aliquam nisl, eget aliquam nisl nisl sit amet nisl. Sed euismod, nisl nec ultricies lacinia, nisl nisl aliquam nisl, eget aliquam nisl nisl sit amet nisl.</p>",
+    "image": "/images/blog/blog1.jpg",
+    "isActive": true,
+    "createdAt": "2023-01-01T10:00:00.000Z",
+    "updatedAt": "2023-01-01T10:00:00.000Z"
+  },
+  {
+    "_id": "mock-blog-2",
+    "title": "Örnek Blog Yazısı 2",
+    "slug": "ornek-blog-yazisi-2",
+    "summary": "Bu örnek bir blog yazısıdır. API'yi test etmek için kullanılır.",
+    "detail": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl nec ultricies lacinia, nisl nisl aliquam nisl, eget aliquam nisl nisl sit amet nisl. Sed euismod, nisl nec ultricies lacinia, nisl nisl aliquam nisl, eget aliquam nisl nisl sit amet nisl.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl nec ultricies lacinia, nisl nisl aliquam nisl, eget aliquam nisl nisl sit amet nisl. Sed euismod, nisl nec ultricies lacinia, nisl nisl aliquam nisl, eget aliquam nisl nisl sit amet nisl.</p>",
+    "image": "/images/blog/blog2.jpg",
+    "isActive": true,
+    "createdAt": "2023-01-02T10:00:00.000Z",
+    "updatedAt": "2023-01-02T10:00:00.000Z"
+  },
+  {
+    "_id": "mock-blog-3",
+    "title": "Örnek Blog Yazısı 3",
+    "slug": "ornek-blog-yazisi-3",
+    "summary": "Bu örnek bir blog yazısıdır. API'yi test etmek için kullanılır.",
+    "detail": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl nec ultricies lacinia, nisl nisl aliquam nisl, eget aliquam nisl nisl sit amet nisl. Sed euismod, nisl nec ultricies lacinia, nisl nisl aliquam nisl, eget aliquam nisl nisl sit amet nisl.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl nec ultricies lacinia, nisl nisl aliquam nisl, eget aliquam nisl nisl sit amet nisl. Sed euismod, nisl nec ultricies lacinia, nisl nisl aliquam nisl, eget aliquam nisl nisl sit amet nisl.</p>",
+    "image": "/images/blog/blog3.jpg",
+    "isActive": true,
+    "createdAt": "2023-01-03T10:00:00.000Z",
+    "updatedAt": "2023-01-03T10:00:00.000Z"
+  }
+] 
