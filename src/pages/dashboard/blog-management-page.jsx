@@ -44,6 +44,15 @@ const BlogManagementPage = () => {
     navigate(`/admin/blog-ekle/${id}`);
   };
 
+  // Blogları tarihe göre sırala - en yeniden eskiye
+  const sortedBlogs = blogs
+    ? [...blogs].sort((a, b) => {
+        const dateA = a.created_at || a.createdAt || "";
+        const dateB = b.created_at || b.createdAt || "";
+        return new Date(dateB) - new Date(dateA);
+      })
+    : [];
+
   if (loading) {
     return (
       <Container className="py-4">
@@ -91,7 +100,7 @@ const BlogManagementPage = () => {
               </tr>
             </thead>
             <tbody>
-              {blogs.map((blog) => (
+              {sortedBlogs.map((blog) => (
                 <tr key={blog._id}>
                   <td>{blog.title}</td>
                   <td>{blog.summary}</td>
@@ -106,9 +115,15 @@ const BlogManagementPage = () => {
                     )}
                   </td>
                   <td>
-                    {format(new Date(blog.createdAt), "dd MMMM yyyy", {
-                      locale: tr,
-                    })}
+                    {blog.created_at
+                      ? format(new Date(blog.created_at), "dd MMMM yyyy", {
+                          locale: tr,
+                        })
+                      : blog.createdAt
+                      ? format(new Date(blog.createdAt), "dd MMMM yyyy", {
+                          locale: tr,
+                        })
+                      : "-"}
                   </td>
                   <td>
                     <Form.Check

@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { slugify } from "../../utils/slugify";
 
 // Async thunk for fetching blogs (sadece aktif olanlar)
 export const fetchBlogs = createAsyncThunk("blogs/fetchBlogs", async () => {
@@ -32,12 +33,7 @@ export const createBlog = createAsyncThunk(
     try {
       const response = await axios.post(
         "http://localhost:3001/api/blogs",
-        blog,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
+        blog
       );
       return response.data;
     } catch (err) {
@@ -57,12 +53,7 @@ export const updateBlog = createAsyncThunk(
     try {
       const response = await axios.put(
         `http://localhost:3001/api/blogs/${id}`,
-        blog,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
+        blog
       );
       return response.data;
     } catch (err) {

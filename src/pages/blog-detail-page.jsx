@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Container, Row, Col, Card } from "react-bootstrap";
+import { Helmet } from "react-helmet-async";
 import axios from "axios";
 import { format } from "date-fns";
 import { tr } from "date-fns/locale";
 import useFormatContent from "../hooks/use-format-content";
+import RecentPostsSidebar from "../components/blogs/recent-posts-sidebar";
+import { slugify, getTitleSlug } from "../utils/slugify";
 import "./blog-detail-page.scss";
 
 const BlogDetailPage = () => {
   const { slug } = useParams();
+  const navigate = useNavigate();
   const [blog, setBlog] = useState(null);
-  const [recentBlogs, setRecentBlogs] = useState([]);
+  const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -24,43 +28,83 @@ const BlogDetailPage = () => {
       .get("http://localhost:3001/api/blogs")
       .then((response) => {
         const blogs = response.data;
-        const foundBlog = blogs.find((b) => b.slug === slug);
+
+        // Tüm blogları gez ve başlıklarına göre slug oluştur
+        const blogWithGeneratedSlugs = blogs.map((blog) => ({
+          ...blog,
+          generatedSlug: getTitleSlug(blog.title),
+        }));
+
+        // Hem backend slug'ı hem de generated slug ile karşılaştır
+        const foundBlog = blogWithGeneratedSlugs.find(
+          (blog) => blog.slug === slug || blog.generatedSlug === slug
+        );
 
         if (!foundBlog) {
           setError("Blog yazısı bulunamadı");
         } else {
           setBlog(foundBlog);
-        
-        // Son eklenen 7 blog yazısını al
-        const recent = blogs
-          .filter(b => b.slug !== slug)
-          .sort((a, b) => {
-            const dateA = a.created_at ? new Date(a.created_at) : new Date(0);
-            const dateB = b.created_at ? new Date(b.created_at) : new Date(0);
-            return dateB - dateA;
-          })
-          .slice(0, 7);
-        setRecentBlogs(recent);
+          setBlogs(blogs);
+
+          // Eğer blog bulunduysa ve URL, oluşturulan slug ile eşleşmiyorsa
+          // doğru URL'ye yönlendir
+          const correctSlug = getTitleSlug(foundBlog.title);
+          if (slug !== correctSlug) {
+            navigate(`/blog/${correctSlug}`, { replace: true });
+          }
         }
       })
       .catch((error) => {
         console.error("Blog çekilirken hata oluştu!", error);
-        setError("Blog verileri yüklenirken bir hata oluştu. Lütfen daha sonra tekrar deneyin.");
+        setError(
+          "Blog verileri yüklenirken bir hata oluştu. Lütfen daha sonra tekrar deneyin."
+        );
       })
       .finally(() => {
         setLoading(false);
       });
-  }, [slug]);
+  }, [slug, navigate]);
 
   // Tarih formatı güvenli fonksiyon
   const formatDate = (dateString) => {
     try {
-      if (!dateString) return format(new Date(), "dd MMMM yyyy", { locale: tr });
-      return format(new Date(dateString), "dd MMMM yyyy", { locale: tr });
+      if (!dateString) return "";
+      const date = new Date(dateString);
+      if (isNaN(date.getTime())) return "";
+      return format(date, "dd MMMM yyyy", { locale: tr });
     } catch (error) {
       console.error("Tarih format hatası:", error);
-      return format(new Date(), "dd MMMM yyyy", { locale: tr });
+      return "";
     }
+  };
+
+  // Blog için tarih bilgisini alma
+  const getBlogDate = (blog) => {
+    if (blog.created_at) {
+      return formatDate(blog.created_at);
+    } else if (blog.createdAt) {
+      return formatDate(blog.createdAt);
+    }
+    return "";
+  };
+
+  // SEO için description hazırlama
+  const getMetaDescription = (blog) => {
+    if (!blog) return "";
+
+    // Özet varsa onu kullanalım
+    if (blog.summary) return blog.summary;
+
+    // Detay içeriğinden kısa bir özet oluşturalım (HTML etiketlerini temizleyerek)
+    if (blog.detail) {
+      const cleanDetail = blog.detail.replace(/<[^>]*>?/gm, "");
+      // İlk 160 karakteri alıp sonuna üç nokta ekleyelim
+      return cleanDetail.length > 160
+        ? cleanDetail.substring(0, 157) + "..."
+        : cleanDetail;
+    }
+
+    return `${blog.title} - Avukat Emin Ulusoy Hukuk Bürosu`;
   };
 
   // Loading durumu
@@ -87,76 +131,89 @@ const BlogDetailPage = () => {
   }
 
   return (
-    <Container className="blog-detail-container">
-      <Row className="blog-detail-row">
-        <Col lg={8}>
-          <Card className="blog-detail-card">
-            {/* Resim en üstte */}
-            {blog.image && (
-              <div className="blog-image-container">
-                <img 
-                  src={`http://localhost:3001${blog.image}`}
-                  alt={blog.title}
-                  className="blog-image"
+    <>
+      <Helmet>
+        <title>{`${blog.title} - Avukat Emin Ulusoy`}</title>
+        <meta name="description" content={getMetaDescription(blog)} />
+        <meta
+          name="keywords"
+          content={`avukat, hukuk, istanbul avukat, emin ulusoy, ${blog.title.toLowerCase()}`}
+        />
+        <meta
+          property="og:title"
+          content={`${blog.title} - Avukat Emin Ulusoy`}
+        />
+        <meta property="og:description" content={getMetaDescription(blog)} />
+        <meta property="og:type" content="article" />
+        <meta
+          property="og:url"
+          content={`https://www.eminulusoy.com/blog/${getTitleSlug(
+            blog.title
+          )}`}
+        />
+        {blog.image && (
+          <meta
+            property="og:image"
+            content={`http://localhost:3001${blog.image}`}
+          />
+        )}
+        <meta
+          property="article:published_time"
+          content={blog.created_at || blog.createdAt}
+        />
+        <link
+          rel="canonical"
+          href={`https://www.eminulusoy.com/blog/${getTitleSlug(blog.title)}`}
+        />
+      </Helmet>
+      <Container className="blog-detail-container">
+        <Row className="blog-detail-row">
+          <Col lg={8}>
+            <Card className="blog-detail-card">
+              {/* Resim en üstte */}
+              {blog.image && (
+                <div className="blog-image-container">
+                  <img
+                    src={`http://localhost:3001${blog.image}`}
+                    alt={blog.title}
+                    className="blog-image"
+                  />
+                </div>
+              )}
+
+              {/* Başlık ve tarih bilgisi resmin altında */}
+              <div className="blog-header">
+                <h1 className="blog-title">{blog.title}</h1>
+                <div className="blog-meta">
+                  <span className="blog-date">
+                    <i className="far fa-calendar-alt"></i>
+                    {getBlogDate(blog)}
+                  </span>
+                </div>
+              </div>
+
+              {/* İçerik kısmı - custom hook ile formatlanmış */}
+              <div className="blog-content">
+                <div
+                  className="blog-detail"
+                  dangerouslySetInnerHTML={{ __html: formattedContent }}
                 />
               </div>
-            )}
-            
-            {/* Başlık ve tarih bilgisi resmin altında */}
-            <div className="blog-header">
-              <h1 className="blog-title">{blog.title}</h1>
-              <div className="blog-meta">
-                <span className="blog-date">
-                  <i className="far fa-calendar-alt"></i>
-                  {formatDate(blog.created_at)}
-                </span>
-              </div>
-            </div>
-            
-            {/* İçerik kısmı - custom hook ile formatlanmış */}
-            <div className="blog-content">
-              <div 
-                className="blog-detail" 
-                dangerouslySetInnerHTML={{ __html: formattedContent }} 
+            </Card>
+          </Col>
+
+          <Col lg={4} className="sidebar">
+            <div className="sticky-sidebar">
+              <RecentPostsSidebar
+                blogs={blogs}
+                currentBlogSlug={slug}
+                formatDate={formatDate}
               />
             </div>
-          </Card>
-        </Col>
-        
-        <Col lg={4}>
-          <div className="sidebar sticky-sidebar">
-            <Card className="sidebar-card">
-              <Card.Header>Son Eklenen Yazılar</Card.Header>
-              <Card.Body>
-                <ul className="recent-posts-list">
-                  {recentBlogs.map(recentBlog => (
-                    <li key={recentBlog._id} className="recent-post-item">
-                      <Link to={`/blog/${recentBlog.slug}`} className="recent-post-link">
-                        <div className="recent-post-img-container">
-                          {recentBlog.image && (
-                            <img 
-                              src={`http://localhost:3001${recentBlog.image}`} 
-                              alt={recentBlog.title}
-                              className="recent-post-img" 
-                            />
-                          )}
-                        </div>
-                        <div className="recent-post-content">
-                          <h6 className="recent-post-title">{recentBlog.title}</h6>
-                          <span className="recent-post-date">
-                            {formatDate(recentBlog.created_at)}
-                          </span>
-                        </div>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </Card.Body>
-            </Card>
-          </div>
-        </Col>
-      </Row>
-    </Container>
+          </Col>
+        </Row>
+      </Container>
+    </>
   );
 };
 

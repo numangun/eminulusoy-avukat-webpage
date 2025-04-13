@@ -2,7 +2,7 @@ import axios from "axios";
 import { config } from "../helpers/config";
 import { getAuthHeader } from "../helpers/auth-header";
 
-const API_URL = config.api.baseUrl; // https://mycampusmates.com/app
+const API_URL = config.api.baseUrl; // https://eminulusoy.av.tr
 
 export const login = async (payload) => {
   const resp = await axios.post(`${API_URL}/auth/login`, payload);

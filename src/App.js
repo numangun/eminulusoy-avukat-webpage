@@ -8,6 +8,7 @@ import {
   getLocalStorage,
   removeLocalStorage,
 } from "./helpers/encrypted-storage";
+import { HelmetProvider } from "react-helmet-async";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -49,7 +50,11 @@ const App = () => {
 
   if (loading) return <LoadingSpinner />;
 
-  return <AppRouter />;
+  return (
+    <HelmetProvider>
+      <AppRouter />
+    </HelmetProvider>
+  );
 };
 
 export default App;

@@ -34,6 +34,6 @@ export const config = {
     },
   },
   api: {
-    baseUrl: "http://localhost:3000",
+    baseUrl: "https://eminulusoy.av.tr/api",
   },
 };
