@@ -33,15 +33,16 @@ jobs:
           CI: false
         run: npm run build
 
-      - name: Deploy to Plesk via SFTP
-        uses: Burnett01/rsync-deployments@5.2.1
+      - name: Deploy to Plesk via FTPS
+        uses: kevinpainchaud/simple-ftp-deploy-action@v1.2.1
         with:
-          switches: -avzr --delete
-          path: build/
-          remote_path: /httpdocs/
-          remote_host: ${{ secrets.FTP_SERVER }}
-          remote_user: ${{ secrets.FTP_USERNAME }}
-          remote_password: ${{ secrets.FTP_PASSWORD }}
+          ftp_host: ${{ secrets.FTP_SERVER }}
+          ftp_username: ${{ secrets.FTP_USERNAME }}
+          ftp_password: ${{ secrets.FTP_PASSWORD }}
+          local_source_dir: "build"
+          dist_target_dir: "httpdocs"
+          delete: "true"
+          exclude: "'.*'"
 
       # Bir önceki yöntem çalışmazsa bu yöntemi kullanabilirsiniz (yorum işaretlerini kaldırın)
       # - name: Deploy to Plesk via SSH/SFTP
@@ -53,3 +54,22 @@ jobs:
       #     source: "./build/*"
       #     target: "/httpdocs/"
       #     rm: true
+
+      # Alternatif FTP Yöntemi 1
+      # - name: Deploy to Plesk via FTP (Alternative 1)
+      #   if: ${{ failure() }}  # Yalnızca önceki adım başarısız olursa çalışır
+      #   uses: wk-j/ftp-action@master
+      #   with:
+      #     hostname: ${{ secrets.FTP_SERVER }}
+      #     username: ${{ secrets.FTP_USERNAME }}
+      #     password: ${{ secrets.FTP_PASSWORD }}
+      #     localFolder: ./build
+      #     remoteFolder: /httpdocs
+      #     forceUploads: "Yes"
+
+      # Alternatif FTP Yöntemi 2
+      # - name: Deploy to Plesk via FTP (Alternative 2)
+      #   if: ${{ failure() }}  # Yalnızca önceki adımlar başarısız olursa çalışır
+      #   run: |
+      #     apt-get update && apt-get install -y lftp
+      #     lftp -c "open -u ${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }} ${{ secrets.FTP_SERVER }}; mirror -R ./build /httpdocs"
