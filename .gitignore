@@ -6,3 +6,4 @@
 /dist
 blog-api/uploads
 blog-api/.env
+.env.production

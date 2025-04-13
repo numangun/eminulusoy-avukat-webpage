@@ -33,6 +33,12 @@ jobs:
           CI: false
         run: npm run build
 
-      - name: Deploy to hosting
-        # Buraya deploy işlemleriniz gelecek
-        run: echo "Deploy işlemi buraya eklenecek"
+      - name: Deploy to Plesk
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./build/
+          server-dir: /httpdocs/
+          dangerous-clean-slate: true
