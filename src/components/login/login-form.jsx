@@ -35,7 +35,7 @@ const LoginForm = () => {
     const encodedPassword = localStorage.getItem("rememberedPassword");
     const password = encodedPassword ? decodeBase64(encodedPassword) : "";
     const rememberMe = Boolean(localStorage.getItem("rememberedUsername"));
-    
+
     return { username, password, rememberMe };
   };
 
@@ -52,8 +52,12 @@ const LoginForm = () => {
 
     try {
       if (
-        values.username === process.env.REACT_APP_ADMIN_USERNAME &&
-        values.password === process.env.REACT_APP_ADMIN_PASSWORD
+        values.username ===
+          (process.env.REACT_APP_ADMIN_USERNAME ||
+            process.env.GITHUB_ADMIN_USERNAME) &&
+        values.password ===
+          (process.env.REACT_APP_ADMIN_PASSWORD ||
+            process.env.GITHUB_ADMIN_PASSWORD)
       ) {
         // Token oluştur ve sakla
         const expirationTime = values.rememberMe
@@ -66,7 +70,10 @@ const LoginForm = () => {
 
         if (values.rememberMe) {
           localStorage.setItem("rememberedUsername", values.username);
-          localStorage.setItem("rememberedPassword", encodeBase64(values.password));
+          localStorage.setItem(
+            "rememberedPassword",
+            encodeBase64(values.password)
+          );
         } else {
           localStorage.removeItem("rememberedUsername");
           localStorage.removeItem("rememberedPassword");

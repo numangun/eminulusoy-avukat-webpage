@@ -11,7 +11,10 @@ const port = 3001;
 require("dotenv").config();
 
 // MongoDB bağlantısı
-const mongoURI = process.env.MONGODB_URI || "mongodb://localhost:27017/blog";
+const mongoURI =
+  process.env.MONGODB_URI ||
+  process.env.GITHUB_MONGODB_URI ||
+  "mongodb://localhost:27017/blog";
 mongoose.set("debug", true);
 mongoose
   .connect(mongoURI, {

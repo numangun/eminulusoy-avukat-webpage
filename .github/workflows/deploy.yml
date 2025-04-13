@@ -1,0 +1,36 @@
+name: Build and Deploy Website
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        env:
+          GITHUB_WEB3FORMS_ACCESS_KEY: ${{ secrets.WEB3FORMS_ACCESS_KEY }}
+          GITHUB_MONGODB_URI: ${{ secrets.MONGODB_URI }}
+          GITHUB_ADMIN_USERNAME: ${{ secrets.ADMIN_USERNAME }}
+          GITHUB_ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+        run: npm run build
+
+      - name: Deploy to hosting
+        # Buraya deploy işlemleriniz gelecek
+        run: echo "Deploy işlemi buraya eklenecek"
