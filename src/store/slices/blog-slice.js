@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { slugify } from "../../utils/slugify";
 
 // Async thunk for fetching blogs (sadece aktif olanlar)
 export const fetchBlogs = createAsyncThunk("blogs/fetchBlogs", async () => {

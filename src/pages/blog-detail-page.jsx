@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { Container, Row, Col, Card } from "react-bootstrap";
+import { Container, Row, Col, Card, Image, Spinner } from "react-bootstrap";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import axios from "axios";
 import { format } from "date-fns";
 import { tr } from "date-fns/locale";
 import useFormatContent from "../hooks/use-format-content";
 import RecentPostsSidebar from "../components/blogs/recent-posts-sidebar";
-import { slugify, getTitleSlug } from "../utils/slugify";
+import { getTitleSlug } from "../utils/slugify";
 import "./blog-detail-page.scss";
+import MainMenu from "../components/common/main-menu";
+import Footer from "../components/common/footer";
+import PageHeader from "../components/common/page-header";
+import { FaAngleRight } from "react-icons/fa";
+import { getOneBlogBySlug } from "../api/blog-service";
 
 const BlogDetailPage = () => {
   const { slug } = useParams();

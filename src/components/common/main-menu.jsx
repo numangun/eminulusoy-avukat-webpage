@@ -1,13 +1,7 @@
 import React from "react";
-import { Nav } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import {
-  AiOutlineAliwangwang,
-  AiOutlineHome,
-  AiFillForward,
-  AiOutlineCalendar,
-  AiOutlineInfoCircle,
-} from "react-icons/ai";
+import { Nav, Navbar } from "react-bootstrap";
+import { Link, useLocation } from "react-router-dom";
+import { config } from "../../helpers/config";
 
 const MainMenu = (props) => {
   return (

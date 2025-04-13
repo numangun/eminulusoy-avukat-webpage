@@ -2,13 +2,13 @@ import React from "react";
 import { Col, Container, Image, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { config } from "../../helpers/config";
-import MainMenu from "./main-menu";
 import "./footer.scss";
 import SocialMenu from "./social-menu";
 import ContactMenu from "./contact-menu";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWhatsapp, faTwitter } from "@fortawesome/free-brands-svg-icons";
 import courses from "../../helpers/data/courses.json";
+import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
 
 const Footer = () => {
   const footerCourses = courses.slice(0, 8); // İlk 8 çalışma alanı

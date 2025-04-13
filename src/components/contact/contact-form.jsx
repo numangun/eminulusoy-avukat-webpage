@@ -1,12 +1,10 @@
 import { useFormik } from "formik";
 import React, { useState } from "react";
 import { Button, Col, Form, InputGroup, Row } from "react-bootstrap";
-import { AiOutlineUser, AiOutlineMail, AiOutlineMessage } from "react-icons/ai";
+import { AiOutlineUser, AiOutlineMail } from "react-icons/ai";
 import { BiMessage, BiTag, BiSend } from "react-icons/bi";
 import * as Yup from "yup";
 import ButtonSpinner from "../common/button-spinner";
-import { sendContactMessage } from "../../api/contact-service";
-import { swalAlert } from "../../helpers/swal";
 import "./contact-form.scss";
 
 const ContactForm = () => {

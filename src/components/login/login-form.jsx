@@ -4,15 +4,11 @@ import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import * as Yup from "yup";
 import ButtonSpinner from "../common/button-spinner";
 import PasswordInput from "../common/password-input";
-import { login } from "../../api/auth-service";
-import { useDispatch } from "react-redux";
-import { login as loginSuccess } from "../../store/slices/auth-slice";
 import { useNavigate } from "react-router-dom";
 import { swalAlert } from "../../helpers/swal";
 
 const LoginForm = () => {
   const [loading, setLoading] = useState(false);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   // Base64 kodlama ve çözme fonksiyonları

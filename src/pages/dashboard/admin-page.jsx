@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FaBlog, FaUsers, FaCog } from "react-icons/fa";
 import LogoutButton from "../../components/common/logout-button";
 

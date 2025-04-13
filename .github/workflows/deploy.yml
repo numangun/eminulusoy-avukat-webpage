@@ -29,6 +29,7 @@ jobs:
           GITHUB_MONGODB_URI: ${{ secrets.MONGODB_URI }}
           GITHUB_ADMIN_USERNAME: ${{ secrets.ADMIN_USERNAME }}
           GITHUB_ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+          CI: false
         run: npm run build
 
       - name: Deploy to hosting
